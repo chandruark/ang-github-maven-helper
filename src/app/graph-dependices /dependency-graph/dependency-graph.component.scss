@@ -1,0 +1,57 @@
+table{
+    border: 1px solid #ddd;
+}
+.mat-table{
+    th, td{
+        word-wrap: break-word !important;
+        white-space: unset !important;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        height: 75px;
+    }
+    .mat-column-repoName {
+        width: 25%;
+    }
+    .mat-column-requestedArtifactVersionsUsed {
+        width: 15%;
+    }
+    .mat-column-owner {
+        width: 15%;
+    }
+    .mat-column-lifeCycle {
+        width: 10%;
+    }
+    .mat-column-description {
+        width: 20%;
+    }
+    .mat-column-commits {
+        width: 5%;
+    }
+    .mat-column-language {
+        width: 10%;
+    }
+    .highlight{
+        a{
+            color: #fff;
+        }
+        color: #fff;
+        background-color: #007bff;
+    }
+}
+.fds-section{
+    min-height: 500px;
+}
+.btn-pos {
+    position:relative;
+    z-index:1;
+    left: -36px;
+ }
+ .mat-header-cell, .mat-sort-header-content{
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #ddd;
+    color: #111827;
+ }
+ .total-rec{
+    padding: 1.25rem;
+ }

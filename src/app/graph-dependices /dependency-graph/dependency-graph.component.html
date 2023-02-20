@@ -1,0 +1,106 @@
+<div class="row mt-5"> 
+  <div class="col-xl-8 col-lg-8 col-sm-12 col-md-12 col-xs-12">
+   <div class="text-center">
+      <div class="spinner-border m-5" role="status"  *ngIf="showLoaderFAS">
+         <span class="sr-only">Loading...</span>
+      </div>
+   </div>
+   <div class="alert alert-danger mt-4" role="alert" *ngIf="!showLoaderFAS && showFASAPIFail">
+      <p class="mb-0">There was a issue.</p>
+      <p class="mb-0">Please try agian later.</p>
+   </div>
+      <div class="form-group" [hidden]="!fetchAllAvailableService">
+         <h2 class="mb-0"> Select Service</h2>
+         <div class="d-flex">
+         <input id='select-service' [(ngModel)]="selected"
+         type="search"
+         [typeahead]="fetchAllAvailableService"
+         [adaptivePosition]="true"
+         [typeaheadScrollable]="true"
+         [typeaheadMinLength]="0"
+         [typeaheadOptionsInScrollableView]="10"
+         (typeaheadOnSelect)="typeaheadOnSelect($event)"
+         (typeaheadNoResults)="typeaheadNoResults($event)"
+         class="form-control">
+         <button class="btn btn-outline-secondary border-0 btn-pos" type="button">
+            <i class="fa fa-search"></i>
+        </button>
+
+      </div>
+      <div class="invalid-feedback" [class.d-block]="noResult">No Results Found</div>
+      </div>
+   </div>
+   <div class="col-12" *ngIf="fetchAllAvailableService"> 
+      <h2 class="mb-2"> Dependents Service</h2>
+   </div>
+   <div class="col-12" *ngIf="fetchAllAvailableService">
+      <div class="border fds-section p-3">
+         <div class="text-center">
+            <div class="spinner-border m-5" role="status"  *ngIf="showLoaderFDS">
+               <span class="sr-only">Loading...</span>
+            </div>
+         </div>
+         <div class="alert alert-danger mt-4" role="alert" *ngIf="!showLoaderFDS && showFDSAPIFail">
+            <p class="mb-0">There was a issue.</p>
+            <p class="mb-0">Please try agian later.</p>
+         </div>
+         <div [hidden]="!fetchAllDependentService">
+            <div class="row">
+            <div class="col-6 total-rec" *ngIf="fetchAllDependentService">
+              <strong>Total Records:</strong>{{fetchAllDependentService?.dependentServiceDetailsList.length}}
+            </div>
+            <div class="col-6 text-right">
+               <mat-form-field>
+               <span matSuffix> <i class="material-icons">search</i> </span>
+               <input
+                  type="search"
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  placeholder="Search"
+               />
+               </mat-form-field>
+            </div>
+         </div>
+            <table mat-table matSort [dataSource]="fetchAllDependentServiceDataSource" class="w-100 text-left">
+               <ng-container matColumnDef="repoName">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Repo name </th>
+               <td mat-cell *matCellDef="let element"><a href="{{element.url}}" target="_blank">{{element.repoName}}</a>  </td>
+               </ng-container>
+
+               <ng-container matColumnDef="requestedArtifactVersionsUsed">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Used Artifact Id </th>
+               <td mat-cell *matCellDef="let element"> {{element.requestedArtifactVersionsUsed[0]}}  </td>
+               </ng-container>
+          
+               <ng-container matColumnDef="owner">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Owner </th>
+               <td mat-cell *matCellDef="let element">{{element.owner}}  </td>
+               </ng-container>
+
+               <ng-container matColumnDef="lifeCycle">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Life cycle </th>
+               <td mat-cell *matCellDef="let element"> {{element.lifeCycle}}  </td>
+               </ng-container>
+
+               <ng-container matColumnDef="description">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+               <td mat-cell *matCellDef="let element">{{element.description}} </td>
+               </ng-container>
+
+               <ng-container matColumnDef="commits">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Commits </th>
+               <td mat-cell *matCellDef="let element"> {{element.commits}} </td>
+               </ng-container>
+
+               <ng-container matColumnDef="language">
+               <th mat-header-cell *matHeaderCellDef mat-sort-header> Language </th>
+               <td mat-cell *matCellDef="let element"> {{element.language}} </td>
+               </ng-container>
+               <tr mat-header-row *matHeaderRowDef="displayedFdsColumns"></tr>
+               <tr mat-row *matRowDef="let row; columns: displayedFdsColumns;"></tr>
+            </table>
+            <mat-paginator #dependentpaginator [pageSizeOptions]="[5, 15, 50]" showFirstLastButtons aria-label="Select page of Dependent elements"></mat-paginator>
+         </div>
+      </div>
+   </div>
+</div>
